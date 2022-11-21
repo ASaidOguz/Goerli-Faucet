@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     //console.log(response.ownedNfts)
     response.ownedNfts.map((nft)=>{
       console.log(nft.title)
-      if(nft.title=='Alchemy student pass - Exclusive'){
+      if(nft.title=='Alchemy University Early Access'){
          return res.status(200).json({message:"Validation succesful!"})
       }
     })
