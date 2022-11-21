@@ -17,12 +17,16 @@ export default async function handler(req, res) {
    ?owner=${walletAddress}&contractAddresses%5B%5D=${ValidationCollection}`,requestOptions)
    .then(data => data.json())
    if(response.ownedNfts.length!=0){
-    console.log(response.ownedNfts)
-    res.status(200).json({message:"Validation succesful!"})
+    //console.log(response.ownedNfts)
+    response.ownedNfts.map((nft)=>{
+      console.log(nft.title)
+      if(nft.title=='Alchemy student pass - Exclusive'){
+         return res.status(200).json({message:"Validation succesful!"})
+      }
+    })
+    
    }else{
-    alert("Validation unsuccesful!!")
     res.status(400).json({message:"Validation unsuccesful!"})
-   
    }
   } catch (err) {
     console.log(err)
