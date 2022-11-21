@@ -1,7 +1,7 @@
 import { ethers } from "ethers"
 
-const Wallet=new ethers.Wallet(process.env.WALLET_PRIVATE_KEY,
-ethers.getDefaultProvider(process.env.ALCHEMY_URL))
+
+ethers.getDefaultProvider(process.env.ALCHEMY_URL)
 const ValidationCollection="0x60576A64851C5B42e8c57E3E4A5cF3CF4eEb2ED6"
 export default async function handler(req, res) {
   try {
@@ -16,16 +16,19 @@ export default async function handler(req, res) {
    const response=await fetch(`${process.env.ALCHEMY_NFT_URL}/getNFTs/
    ?owner=${walletAddress}&contractAddresses%5B%5D=${ValidationCollection}`,requestOptions)
    .then(data => data.json())
-   if(response.ownedNfts.length!=0){
-    //console.log(response.ownedNfts)
+   if(response.ownedNfts.length!=0){   
+    console.log("Nft titles mapped: ")
+    console.log("-----------------")
     response.ownedNfts.map((nft)=>{
-      console.log(nft.title)
+      console.log("Title mapped: ",nft.title)
       if(nft.title=='Alchemy University Early Access'){
+        console.log("Needed nft title for validation: ",nft.title)
          return res.status(200).json({message:"Validation succesful!"})
       }
     })
     
    }else{
+    console.log("Validation failed: You'r not early access holder!")
     res.status(400).json({message:"Validation unsuccesful!"})
    }
   } catch (err) {

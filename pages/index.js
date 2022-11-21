@@ -40,9 +40,9 @@ export default function Home() {
             { console.log(response)
               return alert('Validation unsuccesful!!')}
             else{
+              alert("Validation succesful!!")
               getFunds()
-              alert("Transaction initiated succesfully!") }
-            
+              }
            } catch (err) {
             console.error(err)
            }
